@@ -44,7 +44,7 @@ app.set('views', __dirname+'/views')
 .use('/static', express.static(__dirname+"/static"))
 
 
-// Renders the log-in page
+// Renders log-in page
 app.get('/', (req, res) => {
 	res.render('login')
 })
