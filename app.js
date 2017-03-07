@@ -48,12 +48,24 @@ app.set('views', __dirname+'/views')
 app.get('/', (req, res) => {
 	res.render('login')
 })
+
+//insert a new entry into the users table
+ .post('/new-user', (request, response) => {
+   //takes everything in request.body, from name attribute in pug file
+ 	user.create(request.body).then(() => {
+    	//redirects to home
+ 		response.redirect('/home')
+ 	})
+
+})
 // Makes a get request to /home
 .get('/home', (req, res) => {
 	// Finds everything in the message table then passes  it as a parameter
 	message.findAll().then((messages) => {
 		// Renders home page with messages object as parameter
-		res.render('home', {messages: messages})
+		res.render('home', {
+			messages: messages
+		})
 	})
 })
 // Renders the profile page

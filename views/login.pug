@@ -9,18 +9,16 @@ html
 			.row.center-align
 				.col.s4.register
 					span Haven't made an account?	
-					form(action="/home" method="GET")
+					form(action="/new-user" method="POST")
 						.row
 							h4 Register Now!
 							.input-field.col.s12
-								label(for="newusername") New Username
-								input(id="newusername" type="text" class="validate")
-						.row
+								label(for="username") New Username
+								input(name="username" id="newusername" type="text" class="validate")
 							.input-field.col.s12
 								label(for="newpassword") New Password
-								input(id="newpassword" type="text" class="validate")
-						.row
-							a.waves-effect.waves-light.btn-large(type="submit" href="home") Submit
+								input(name="password" id="newpassword" type="text" class="validate")
+							button.waves-effect.waves-light.btn-large(type="submit") Submit
 				.col.s1
 					h5 OR
 						.vertical-divider
@@ -32,12 +30,10 @@ html
 							.input-field.col.s12
 								label(for="username") Enter Username
 								input(id="username" type="text" class="validate")
-						.row
 							.input-field.col.s12
 								label(for="password") Enter Password
 								input(id="password" type="text" class="validate")
-						.row
-							a.waves-effect.waves-light.btn-large(type="submit" href="/home") Submit
+							button.waves-effect.waves-light.btn-large(type="submit") Submit
 		script(type="text/javascript" src="static/js/jquery.min.js")
 		script(type="text/javascript" src="static/js/materialize.min.js")
 
