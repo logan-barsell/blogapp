@@ -12,10 +12,12 @@ const express = require('express'),
 	bodyParser = require('body-parser'),
 	// Accesses Postgres server
 	pg = require('pg')
+	// Sets up a connection to communicate with the database 
+	sequelize = require('sequelize')
 
 
 	// Creates data base blogpg
-	db = new sequelize('blogpg', 'loganbarsell1', '', {
+	db = new sequelize('blogapp', 'loganbarsell1', '', {
 		host: 'localhost',
 		dialect: 'postgres'
 	})
@@ -25,9 +27,9 @@ const express = require('express'),
 		password: sequelize.STRING
 	})
 	// Creates a message table with title and body
-	message = sequelize.define('message', {
-		title: Sequelize.STRING,
-		body: Sequelize.TEXT
+	message = db.define('message', {
+		title: sequelize.STRING,
+		body: sequelize.TEXT
 	})
 
 
@@ -46,9 +48,13 @@ app.set('views', __dirname+'/views')
 app.get('/', (req, res) => {
 	res.render('login')
 })
-// Renders the home page
+// Makes a get request to /home
 .get('/home', (req, res) => {
-	res.render('home')
+	// Finds everything in the message table then passes  it as a parameter
+	message.findAll().then((messages) => {
+		// Renders home page with messages object as parameter
+		res.render('home', {messages: messages})
+	})
 })
 // Renders the profile page
 .get('/profile', (req, res) => {
@@ -60,7 +66,7 @@ app.get('/', (req, res) => {
 })
 
 // Syncs app to database
-sequelize.sync().then(() =>{
+db.sync().then(() =>{
 	console.log('connected to database')
 })
 
