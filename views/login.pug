@@ -3,39 +3,41 @@ html
 	head
 		title Log-in/Register
 		link(type="text/css" rel="stylesheet" href="static/css/materialize.min.css"  media="screen,projection")
-		link(type="text/css" rel="stylesheet" href="static/css/style.css")
+		link(type="text/css" rel="stylesheet" href="static/css/login.css")
 	body
 		.container.card-panel.z-depth-5.teal.lighten-4
 			.row.center-align
 				.col.s4.register
 					span Haven't made an account?	
-					form(action="/new-user" method="POST")
+					form(action="/new-user" method="POST" class="form-signin")
 						.row
 							h4 Register Now!
 							.input-field.col.s12
 								label(for="username") New Username
-								input(name="username" id="newusername" type="text" class="validate")
+								input(name="username" id="newusername" type="text" class="validate" required="" autocomplete="off")
 							.input-field.col.s12
 								label(for="newpassword") New Password
-								input(name="password" id="newpassword" type="text" class="validate")
+								input(name="password" id="newpassword" type="text" class="validate" required="" autocomplete="off")
 							button.waves-effect.waves-light.btn-large(type="submit") Submit
 				.col.s1
 					h5 OR
 						.vertical-divider
 				.col.s4.right.login
 					span If you already have an account
-					form(action="/home" method="GET")
+					form(action="/home" method="POST" class="form-signin")
 						.row
 							h4 Log In!
 							.input-field.col.s12
 								label(for="username") Enter Username
-								input(id="username" type="text" class="validate")
+								input(name="username" id="username" type="text" class="validate" required="" autocomplete="off")
 							.input-field.col.s12
 								label(for="password") Enter Password
-								input(id="password" type="text" class="validate")
+								input(name="password" id="password" type="text" class="validate" required="" autocomplete="off")
 							button.waves-effect.waves-light.btn-large(type="submit") Submit
 		script(type="text/javascript" src="static/js/jquery.min.js")
 		script(type="text/javascript" src="static/js/materialize.min.js")
+		script(type="text/javascript" src="static/js/custom.js")
+
 
 
 

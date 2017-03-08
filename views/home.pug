@@ -3,8 +3,60 @@ html
 	head
 		title Home Page
 		link(type="text/css" rel="stylesheet" href="static/css/materialize.min.css"  media="screen,projection")
-		link(type="text/css" rel="stylesheet" href="static/css/style.css")
+		link(type="text/css" rel="stylesheet" href="static/css/home.css")
 	body
+		nav
+			h2.brand-logo.center RadBlog
+			
+			ul.nav-mobile.left
+				li
+					a(href="/home") Home
+				li
+					a(href="/profile") Profile
+			ul.nav-mobile.right
+				li
+					a(href="/login") Log Out
+		p Welcome, #{user.username}!
+		.container
+			.row
+				.col.s12.m7
+					.card
+						.card-image
+							img(src="static/css/images/msgheader.jpg" alt="ocean")
+							span.card-title
+								form(action="/new-message" method="POST" class="form-msgpost")
+									.input-field.title
+										label(for="title") Title
+										input(name="title" id="newtitle" type="text" class="validate" required="" autocomplete="off")
+						.card-content
+							label(for="body") Body
+								form(action="/new-message" method="POST" class="form-msgpost")
+									.input-field.body
+										input(name="body" id="newbody" type="text" class="validate" required="" autocomplete="off")
+						.card-action.center
+							form(action="/new-message" method="POST" class="form-msgpost")
+								button.waves-effect.waves-light.btn-large(type="submit") POST
+
+			.row
+				.col.s12.m7
+					.card
+						.card-image
+							img(src="static/css/images/msgheader.jpg" alt="ocean")
+							span.card-title Title
+						.card-content
+							p Body
+						.card-action.center
+							ul
+								a.dropdown-button(data-activates="showcomments") Show Comments
+									i.material-icons.right(arrow_drop_down) 
+									//- <ul id="dropdown1" class="dropdown-content">
+									//- 	<li><a href="#!">one</a></li>
+									//- 	<li><a href="#!">two</a></li>
+									//- 	<li class="divider"></li>
+									//- 	<li><a href="#!">three</a></li>
+									//- </ul>
+						
+
 
 
 
@@ -12,3 +64,4 @@ html
 
 		script(type="text/javascript" src="static/js/jquery.min.js")
 		script(type="text/javascript" src="static/js/materialize.min.js")
+		script(type="text/javascript" src="static/js/custom.js")

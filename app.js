@@ -32,7 +32,6 @@ const express = require('express'),
 		body: sequelize.TEXT
 	})
 
-
 // Tells express where to find views
 app.set('views', __dirname+'/views')
 // Sets view engine to pug
@@ -44,30 +43,63 @@ app.set('views', __dirname+'/views')
 .use('/static', express.static(__dirname+"/static"))
 
 
+.use(session({
+  secret: 'secure as f*ck',
+  saveUninitialized: false,
+  resave: false,
+  cookie: { secure: false },
+  maxAge: 1000 * 60 * 60
+}))
+
 // Renders log-in page
-app.get('/', (req, res) => {
+.get('/', (req, res) => {
 	res.render('login')
 })
 
 //insert a new entry into the users table
- .post('/new-user', (request, response) => {
+.post('/new-user', (req, res) => {
    //takes everything in request.body, from name attribute in pug file
- 	user.create(request.body).then(() => {
+ 	user.create(req.body).then(() => {
     	//redirects to home
  		response.redirect('/home')
  	})
+})
 
-})
-// Makes a get request to /home
-.get('/home', (req, res) => {
-	// Finds everything in the message table then passes  it as a parameter
-	message.findAll().then((messages) => {
-		// Renders home page with messages object as parameter
+
+.post('/home', (req, res) => {
+	console.log('The post req.body contains: ', req.body)
+	user.findOne({
+		where:{
+			username: req.body.username
+		}
+	}).then( theuser => {
+		console.log('User from database:', theuser)
+		req.session.user = theuser
 		res.render('home', {
-			messages: messages
+			user: theuser
 		})
-	})
+	})	
 })
+
+.post('/new-message', (req, res) => {
+	console.log(req.body)
+   //takes everything in request.body, from name attribute in pug file
+ 	message.create(req.body).then(() => {
+    	//redirects to home
+ 		console.log('Thanks for posting!')
+ 	})
+})
+// // Makes a get request to /home
+// .get('/home', (req, res) => {
+// 	// Finds everything in the message table then passes  it as a parameter
+// 	message.findAll().then((messages) => {
+// 		// Renders home page with messages object as parameter
+// 		res.render('home', {
+// 			messages: messages
+// 		})
+// 	})
+// })
+
 // Renders the profile page
 .get('/profile', (req, res) => {
 	res.render('profile')
