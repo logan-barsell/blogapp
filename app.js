@@ -31,8 +31,20 @@ const express = require('express'),
 		title: sequelize.STRING,
 		body: sequelize.TEXT
 	})
+	// Creates a comment table
+	comment = db.define('comment', {
+		comment: sequelize.TEXT
+	})
 
 
+user.hasMany(message)
+message.belongsTo(user)
+
+comment.belongsTo(user)
+user.hasMany(comment)
+
+comment.belongsTo(message)
+message.hasMany(comment)
 
 // Tells express where to find views
 app.set('views', __dirname+'/views')
@@ -61,8 +73,9 @@ app.set('views', __dirname+'/views')
 //insert a new entry into the users table
 .post('/new-user', (req, res) => {
    //takes everything in request.body, from name attribute in pug file
- 	user.create(req.body).then(() => {
+ 	user.create(req.body).then((user) => {
     	//redirects to home
+    	req.session.user = user
  		res.redirect('home')
  	})
 })
@@ -73,7 +86,9 @@ app.set('views', __dirname+'/views')
 	message.findAll().then((messages) => {
 		// Renders home page with messages object as parameter
 		res.render('home', {
-			messages: messages
+			messages: messages,
+			user: req.session.user,
+			comments : req.body.comment
 		})
 	})
 })
@@ -87,24 +102,31 @@ app.set('views', __dirname+'/views')
 	}).then( theuser => {
 		console.log('User from database:', theuser)
 		req.session.user = theuser
-		res.render('home', {
-			user: theuser
-		})
+		res.redirect('/home')
 	})	
 })
 
+// Posts a new message
 .post('/new-message', (req, res) => {
 	console.log('Body of the message post', req.body)
-   //takes everything in req.body and makes a new message post
+   //takes everything in req.body and posts a new message post
  	message.create({
  	 	title: req.body.title,
  	 	body: req.body.body
  	 //refreshes home page	
  	}).then( newpost => {
-    	res.redirect('home', {
-    		user: theuser
-    	})
+    	res.redirect('/home')
  	})
+})
+
+// Posts a new comment
+.post('/new-comment', (req, res) => {
+	console.log('Comment made:', req.body)
+	comment.create({
+		comment: req.body.comment
+	}).then(newcomment => {
+		res.redirect('/home')
+	})
 })
 
 // Renders the profile page
@@ -116,10 +138,35 @@ app.set('views', __dirname+'/views')
 	res.render('singlepost')
 })
 
-// Syncs app to database
-db.sync().then(() =>{
-	console.log('connected to database')
-})
+
+db.sync({force: true}).then( f => {
+	return user.create({
+		username: "Logan",
+		password: "123"
+	})
+}).then(user => {
+	return user.createMessage({
+		title: "Come together",
+		body: 'Right now, over me'
+	})
+}).then( themessage => {
+	console.log('Creating message', themessage)
+	return themessage.createComment({
+		comment: "I love this song!"
+	})
+}).then( thecomment => {	
+	return user.findOne({
+		where: {
+			username: "Logan"
+		},
+		include: [ {
+			model: message,
+			include: [comment]
+		} ]
+	})
+} ).then( founduser => {
+	console.log( founduser.get( {plain: true} ) )
+} ).catch( console.log.bind( console ) )
 
 // Make the server listen on port 3000
 app.listen(3000, f=> {

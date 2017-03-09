@@ -5,36 +5,40 @@ html
 		link(type="text/css" rel="stylesheet" href="static/css/materialize.min.css"  media="screen,projection")
 		link(type="text/css" rel="stylesheet" href="static/css/home.css")
 	body
-		nav
-			h2.brand-logo.center RadBlog
-			
-			ul.nav-mobile.left
-				li
-					a(href="/home") Home
-				li
-					a(href="/profile") Profile
-			ul.nav-mobile.right
-				li
-					a(href="/") Log Out
-		.container.intro
-			p Hello #{user.username}, welcome to Radblog!
-			p Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		.img
+			nav
+				h2.brand-logo.center RadBlog
+				
+				ul.nav-mobile.left
+					li
+						a(href="/home") Home
+					li
+						a(href="/profile") Profile
+				ul.nav-mobile.right
+					li
+						a(href="/") Log Out
+			.container.intro
+				if user
+					p Hello #{user.username}, welcome to Radblog!
+				else
+					p Hello stranger
+				p Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
-		.row
-			.col.s12.m8.offset-m2
-				form.card(action="/new-message" method="POST" class="form-msgpost")
-					.card-image
-						img(src="static/css/images/msgheader.jpg" alt="ocean")
-						span.card-title
-							.input-field.title
-								label(for="title") Title
-								input(name="title" id="newtitle" type="text" class="validate" required="" autocomplete="off")
-					.card-content
-						label(for="body") Body
-							.input-field.body
-								input(name="body" id="newbody" type="text" class="validate" required="" autocomplete="off")
-					.card-action.center
-						button.waves-effect.waves-light.btn-large(type="submit") POST
+			.row
+				.col.s12.m8.offset-m2
+					form.card(action="/new-message" method="POST" class="form-msgpost")
+						.card-image
+							img(src="static/css/images/msgheader.jpg" alt="ocean")
+							span.card-title
+								.input-field.title
+									label(for="title") Title
+									input(name="title" id="newtitle" type="text" class="validate" required="" autocomplete="off")
+						.card-content
+							label(for="body") Body
+								.input-field.body
+									input(name="body" id="newbody" type="text" class="validate" required="" autocomplete="off")
+						.card-action.center
+							button.waves-effect.waves-light.btn-large.post(type="submit") POST
 
 		.container
 			.row
@@ -46,17 +50,17 @@ html
 								span.card-title #{message.title}
 							.card-content
 								p #{message.body}
-							.card-action.center
-								ul
-									a.dropdown-button(data-activates="showcomments") Show Comments
-										i.material-icons.right(arrow_drop_down) 
-										<ul id="dropdown1" class="dropdown-content">
-											<li><a href="#!">one</a></li>
-											<li><a href="#!">two</a></li>
-											<li class="divider"></li>
-											<li><a href="#!">three</a></li>
-										</ul>
-						
+								span.right -#{user.username}
+							ul.collapsible.center(data-collapsible="accordion")
+								li
+									.collapsible-header Show Comments
+									.collapsible-body
+										span #{comment}
+										.divider
+										form(action="/new-comment" method="POST")
+											.input-field.comment
+												input(name="comment" id="newcomment" type="text" class="validate" required="" autocomplete="off")
+												button.waves-effect.waves-light.btn(type="submit") Comment
 
 
 

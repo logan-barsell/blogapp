@@ -1,1 +1,3 @@
-$(".dropdown-button").dropdown()
+  $(document).ready(f => {
+    $('.collapsible').collapsible();
+  });

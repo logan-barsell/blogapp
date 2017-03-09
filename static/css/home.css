@@ -1,13 +1,15 @@
 body{
 	height: 100%;
+}
+.img {
 	background-image: url("images/loginbg.jpg");
-	background-size: contain;                      
+	background-size: cover;                      
     background-repeat: no-repeat;
     background-position: top center;
 }
 
 nav {
-	opacity: .9;
+	opacity: .8;
 }
 
 .intro {
@@ -30,6 +32,6 @@ nav {
 	margin-top: 2px;
 }
 
-button {
+button.waves-effect.waves-light.btn-large.post {
 	width: 90%;
 }
