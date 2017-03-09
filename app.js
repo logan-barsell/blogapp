@@ -32,6 +32,8 @@ const express = require('express'),
 		body: sequelize.TEXT
 	})
 
+
+
 // Tells express where to find views
 app.set('views', __dirname+'/views')
 // Sets view engine to pug
@@ -61,10 +63,20 @@ app.set('views', __dirname+'/views')
    //takes everything in request.body, from name attribute in pug file
  	user.create(req.body).then(() => {
     	//redirects to home
- 		response.redirect('/home')
+ 		res.redirect('home')
  	})
 })
 
+// Makes a get request to home
+.get('/home', (req, res) => {
+	// Finds all messages in the database
+	message.findAll().then((messages) => {
+		// Renders home page with messages object as parameter
+		res.render('home', {
+			messages: messages
+		})
+	})
+})
 
 .post('/home', (req, res) => {
 	console.log('The post req.body contains: ', req.body)
@@ -82,23 +94,18 @@ app.set('views', __dirname+'/views')
 })
 
 .post('/new-message', (req, res) => {
-	console.log(req.body)
-   //takes everything in request.body, from name attribute in pug file
- 	message.create(req.body).then(() => {
-    	//redirects to home
- 		console.log('Thanks for posting!')
+	console.log('Body of the message post', req.body)
+   //takes everything in req.body and makes a new message post
+ 	message.create({
+ 	 	title: req.body.title,
+ 	 	body: req.body.body
+ 	 //refreshes home page	
+ 	}).then( newpost => {
+    	res.redirect('home', {
+    		user: theuser
+    	})
  	})
 })
-// // Makes a get request to /home
-// .get('/home', (req, res) => {
-// 	// Finds everything in the message table then passes  it as a parameter
-// 	message.findAll().then((messages) => {
-// 		// Renders home page with messages object as parameter
-// 		res.render('home', {
-// 			messages: messages
-// 		})
-// 	})
-// })
 
 // Renders the profile page
 .get('/profile', (req, res) => {

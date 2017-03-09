@@ -15,46 +15,47 @@ html
 					a(href="/profile") Profile
 			ul.nav-mobile.right
 				li
-					a(href="/login") Log Out
-		p Welcome, #{user.username}!
+					a(href="/") Log Out
+		.container.intro
+			p Hello #{user.username}, welcome to Radblog!
+			p Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+		.row
+			.col.s12.m8.offset-m2
+				form.card(action="/new-message" method="POST" class="form-msgpost")
+					.card-image
+						img(src="static/css/images/msgheader.jpg" alt="ocean")
+						span.card-title
+							.input-field.title
+								label(for="title") Title
+								input(name="title" id="newtitle" type="text" class="validate" required="" autocomplete="off")
+					.card-content
+						label(for="body") Body
+							.input-field.body
+								input(name="body" id="newbody" type="text" class="validate" required="" autocomplete="off")
+					.card-action.center
+						button.waves-effect.waves-light.btn-large(type="submit") POST
+
 		.container
 			.row
-				.col.s12.m7
-					.card
-						.card-image
-							img(src="static/css/images/msgheader.jpg" alt="ocean")
-							span.card-title
-								form(action="/new-message" method="POST" class="form-msgpost")
-									.input-field.title
-										label(for="title") Title
-										input(name="title" id="newtitle" type="text" class="validate" required="" autocomplete="off")
-						.card-content
-							label(for="body") Body
-								form(action="/new-message" method="POST" class="form-msgpost")
-									.input-field.body
-										input(name="body" id="newbody" type="text" class="validate" required="" autocomplete="off")
-						.card-action.center
-							form(action="/new-message" method="POST" class="form-msgpost")
-								button.waves-effect.waves-light.btn-large(type="submit") POST
-
-			.row
-				.col.s12.m7
-					.card
-						.card-image
-							img(src="static/css/images/msgheader.jpg" alt="ocean")
-							span.card-title Title
-						.card-content
-							p Body
-						.card-action.center
-							ul
-								a.dropdown-button(data-activates="showcomments") Show Comments
-									i.material-icons.right(arrow_drop_down) 
-									//- <ul id="dropdown1" class="dropdown-content">
-									//- 	<li><a href="#!">one</a></li>
-									//- 	<li><a href="#!">two</a></li>
-									//- 	<li class="divider"></li>
-									//- 	<li><a href="#!">three</a></li>
-									//- </ul>
+				.col.s12.m8.offset-m2
+					each message in messages
+						.card.msg
+							.card-image
+								img(src="static/css/images/msgheader.jpg" alt="ocean")
+								span.card-title #{message.title}
+							.card-content
+								p #{message.body}
+							.card-action.center
+								ul
+									a.dropdown-button(data-activates="showcomments") Show Comments
+										i.material-icons.right(arrow_drop_down) 
+										<ul id="dropdown1" class="dropdown-content">
+											<li><a href="#!">one</a></li>
+											<li><a href="#!">two</a></li>
+											<li class="divider"></li>
+											<li><a href="#!">three</a></li>
+										</ul>
 						
 
 

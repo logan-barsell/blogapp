@@ -1,13 +1,22 @@
 body{
 	height: 100%;
 	background-image: url("images/loginbg.jpg");
-	background-size: cover;                      
+	background-size: contain;                      
     background-repeat: no-repeat;
-    background-position: center center;
+    background-position: top center;
 }
 
 nav {
 	opacity: .9;
+}
+
+.intro {
+	margin-top: 50px;
+	margin-bottom: 50px;
+}
+
+.card.msg {
+	margin-top: 100px;
 }
 
 .input-field.title > input {
@@ -19,4 +28,8 @@ nav {
 	color: black;
 	text-shadow: .5px .5px .5px darkgray;
 	margin-top: 2px;
+}
+
+button {
+	width: 90%;
 }
