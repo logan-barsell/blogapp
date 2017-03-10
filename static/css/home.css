@@ -58,3 +58,7 @@ h2 {
 a.card-title:hover{
 	text-decoration: underline;
 }
+
+.anonprofile {
+	margin-top: 150px;
+}

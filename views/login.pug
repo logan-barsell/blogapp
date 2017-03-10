@@ -5,6 +5,7 @@ html
 		link(type="text/css" rel="stylesheet" href="static/css/materialize.min.css"  media="screen,projection")
 		link(type="text/css" rel="stylesheet" href="static/css/login.css")
 	body
+		h2.brand-logo.center Message in a Bottle
 		.container.card-panel.z-depth-5.teal.lighten-4
 			.row.center-align
 				.col.s4.register
@@ -34,6 +35,7 @@ html
 								label(for="password") Enter Password
 								input(name="password" id="password" type="text" class="validate" required="" autocomplete="off")
 							button.waves-effect.waves-light.btn-large(type="submit") Submit
+					a.anonlogin(href="/home") Continue as Anonymous
 		script(type="text/javascript" src="static/js/jquery.min.js")
 		script(type="text/javascript" src="static/js/materialize.min.js")
 		script(type="text/javascript" src="static/js/custom.js")

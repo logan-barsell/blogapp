@@ -71,6 +71,9 @@ app.set('views', __dirname+'/views')
 		req.session.destroy()
 		res.render('login')
 	}
+	else {
+		res.render('login')
+	}
 })
 
 //insert a new entry into the users table
@@ -93,7 +96,7 @@ app.set('views', __dirname+'/views')
 		// Renders home page with messages object as parameter
 		res.render('home', {
 			messages: messages,
-			user: req.session.user,
+			user: req.session.user
 		})
 	})
 })
@@ -139,20 +142,28 @@ app.set('views', __dirname+'/views')
 
 // Renders the profile page
 .get('/profile', (req, res) => {
-	message.findAll({
-		where: {
-			userId: req.session.user.id
-		},
-		include: [comment, user]
-	}).then( (messages) => {
-		console.log('These are all messages', messages)
-		// Renders home page with messages object as parameter
+	if (req.session.user){
+		message.findAll({
+			where: {
+				userId: req.session.user.id
+			},
+			include: [comment, user]
+		}).then( (messages) => {
+			console.log('These are all messages', messages)
+			// Renders home page with messages object as parameter
+			res.render('profile', {
+				messages: messages,
+				user: req.session.user
+			})
+		})
+	}
+	else {
 		res.render('profile', {
-			messages: messages,
 			user: req.session.user
 		})
-	})
+	}
 })
+
 // Renders the single post page
 .get('/singlepost', (req, res) => {
 	message.findOne({

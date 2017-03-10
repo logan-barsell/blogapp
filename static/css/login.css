@@ -13,7 +13,7 @@ h4 {
 
 .container.card-panel.z-depth-5.teal.lighten-4{
 	margin: auto;
-	margin-top: 85px;
+	/*margin-top: 85px;*/
 	opacity: .9;
 }
 .col.s4 {
@@ -45,4 +45,8 @@ h4 {
 
 button {
 	margin-top: 10px;
+}
+
+.anonlogin:hover {
+	text-decoration: underline;
 }

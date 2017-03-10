@@ -16,33 +16,44 @@ html
 				ul.nav-mobile.right
 					li
 						a(href="/?logout=true") Log Out
-		.container
-				h1.center #{user.username}
-		.container
-			.row
-				.col.s12.m8.offset-m2
-					each message in messages
-						.card.msg
-							.card-image
-								img(src="static/css/images/msgheader.jpg" alt="ocean")
-								a.card-title(href="/singlepost") #{message.title}
-							.card-content
-								p #{message.body}
-								if message.user
-									span.right -#{message.user.username}
-								else
-									span.right -Anonymous
-							ul.collapsible.center(data-collapsible="accordion")
-								li
-									.collapsible-header.center Show Comments
-									.collapsible-body
-										each comment in message.comments
-											p #{comment.comment}
-										form(action="/new-comment" method="POST")
-											.input-field.comment
-												input(name="messageId" value=message.id hidden)
-												input(name="comment" id="newcomment" type="text" class="validate" required="" autocomplete="off")
-												button.waves-effect.waves-light.btn(type="submit") Comment
+		if user
+			.container
+					h1.center #{user.username}
+			.container
+				.row
+					.col.s12.m8.offset-m2
+						each message in messages
+							.card.msg
+								.card-image
+									img(src="static/css/images/msgheader.jpg" alt="ocean")
+									a.card-title(href="/singlepost") #{message.title}
+								.card-content
+									p #{message.body}
+									if message.user
+										span.right -#{message.user.username}
+									else
+										span.right -Anonymous
+								ul.collapsible.center(data-collapsible="accordion")
+									li
+										.collapsible-header.center Show Comments
+										.collapsible-body
+											each comment in message.comments
+												if comment.comment
+													p #{comment.comment}
+												else
+													p No Comments
+											form(action="/new-comment" method="POST")
+												.input-field.comment
+													input(name="messageId" value=message.id hidden)
+													input(name="comment" id="newcomment" type="text" class="validate" required="" autocomplete="off")
+													button.waves-effect.waves-light.btn(type="submit") Comment
+		else
+			.container.anonprofile
+				.flow-text Sorry, Anonymous users don't have profiles! Please 
+					a(href="/") log in
+					span  or 
+						a(href="/") register
+					span  to save a copy of every message you send out to sea.
 
 
 
