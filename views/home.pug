@@ -7,7 +7,7 @@ html
 	body
 		.img
 			nav
-				h2.brand-logo.center RadBlog
+				h2.brand-logo.center Message in a Bottle
 				
 				ul.nav-mobile.left
 					li
@@ -16,13 +16,13 @@ html
 						a(href="/profile") Profile
 				ul.nav-mobile.right
 					li
-						a(href="/") Log Out
+						a(href="/?logout=true") Log Out
 			.container.intro
 				if user
-					p Hello #{user.username}, welcome to Radblog!
+					.flow-text Hello #{user.username}, welcome to Message in a Bottle!
 				else
-					p Hello stranger
-				p Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non, sunt in culpa qui officia deserunt mollit anim id est laborum.
+					.flow-text Hello Anonymous, welcome to Message in a Bottle!
+				p Here on this website you can post messages for people all over the world to find. Write about your day, a special experience, or anything else that may be on your mind. Who knows who will come across your words? Get started now and send off your message in a bottle!
 
 			.row
 				.col.s12.m8.offset-m2
@@ -38,7 +38,7 @@ html
 								.input-field.body
 									input(name="body" id="newbody" type="text" class="validate" required="" autocomplete="off")
 						.card-action.center
-							button.waves-effect.waves-light.btn-large.post(type="submit") POST
+							button.waves-effect.waves-light.btn-large.post(type="submit") Send your message off into the sea!
 
 		.container
 			.row
@@ -47,20 +47,26 @@ html
 						.card.msg
 							.card-image
 								img(src="static/css/images/msgheader.jpg" alt="ocean")
-								span.card-title #{message.title}
+								a.card-title(href="/singlepost") #{message.title}
 							.card-content
 								p #{message.body}
-								span.right -#{user.username}
+								if message.user
+									span.right -#{message.user.username}
+								else
+									span.right -Anonymous
 							ul.collapsible.center(data-collapsible="accordion")
 								li
-									.collapsible-header Show Comments
+									.collapsible-header.center Show Comments
 									.collapsible-body
-										span #{comment}
-										.divider
+										each comment in message.comments
+											p #{comment.comment}
 										form(action="/new-comment" method="POST")
 											.input-field.comment
+												input(name="messageId" value=message.id hidden)
 												input(name="comment" id="newcomment" type="text" class="validate" required="" autocomplete="off")
 												button.waves-effect.waves-light.btn(type="submit") Comment
+
+
 
 
 

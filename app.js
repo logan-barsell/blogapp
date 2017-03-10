@@ -67,7 +67,10 @@ app.set('views', __dirname+'/views')
 
 // Renders log-in page
 .get('/', (req, res) => {
-	res.render('login')
+	if (req.query.logout){
+		req.session.destroy()
+		res.render('login')
+	}
 })
 
 //insert a new entry into the users table
@@ -83,12 +86,14 @@ app.set('views', __dirname+'/views')
 // Makes a get request to home
 .get('/home', (req, res) => {
 	// Finds all messages in the database
-	message.findAll().then((messages) => {
+	message.findAll({
+		include: [comment, user]
+	}).then( (messages) => {
+		console.log('These are all messages', messages)
 		// Renders home page with messages object as parameter
 		res.render('home', {
 			messages: messages,
 			user: req.session.user,
-			comments : req.body.comment
 		})
 	})
 })
@@ -112,7 +117,8 @@ app.set('views', __dirname+'/views')
    //takes everything in req.body and posts a new message post
  	message.create({
  	 	title: req.body.title,
- 	 	body: req.body.body
+ 	 	body: req.body.body,
+ 	 	userId: req.session.user.id
  	 //refreshes home page	
  	}).then( newpost => {
     	res.redirect('/home')
@@ -123,7 +129,9 @@ app.set('views', __dirname+'/views')
 .post('/new-comment', (req, res) => {
 	console.log('Comment made:', req.body)
 	comment.create({
-		comment: req.body.comment
+		comment: req.body.comment,
+		messageId: req.body.messageId,
+		userId: req.session.user.id
 	}).then(newcomment => {
 		res.redirect('/home')
 	})
@@ -131,11 +139,30 @@ app.set('views', __dirname+'/views')
 
 // Renders the profile page
 .get('/profile', (req, res) => {
-	res.render('profile')
+	message.findAll({
+		where: {
+			userId: req.session.user.id
+		},
+		include: [comment, user]
+	}).then( (messages) => {
+		console.log('These are all messages', messages)
+		// Renders home page with messages object as parameter
+		res.render('profile', {
+			messages: messages,
+			user: req.session.user
+		})
+	})
 })
 // Renders the single post page
 .get('/singlepost', (req, res) => {
-	res.render('singlepost')
+	message.findOne({
+		include: [comment, user]
+	}).then( (messages) => {
+		res.render('singlepost', {
+			messages: messages,
+			user: req.session.user,
+		})
+	})
 })
 
 

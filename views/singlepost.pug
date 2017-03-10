@@ -3,9 +3,44 @@ html
 	head
 		title Showing Single Post
 		link(type="text/css" rel="stylesheet" href="static/css/materialize.min.css"  media="screen,projection")
-		link(type="text/css" rel="stylesheet" href="static/css/style.css")
+		link(type="text/css" rel="stylesheet" href="static/css/home.css")
 	body
-
+		.img
+			nav
+				h2.brand-logo.center Message in a Bottle
+				
+				ul.nav-mobile.left
+					li
+						a(href="/home") Home
+					li
+						a(href="/profile") Profile
+				ul.nav-mobile.right
+					li
+						a(href="/?logout=true") Log Out
+			.row
+				.col.s12.m8.offset-m2
+					each message in messages
+						.card.msg
+							.card-image
+								img(src="static/css/images/msgheader.jpg" alt="ocean")
+								a.card-title(href="/singlepost") #{message.title}
+							.card-content
+								p #{message.body}
+								if message.user
+									span.right -#{message.user.username}
+								else
+									span.right -Anonymous
+							ul.collapsible.center(data-collapsible="accordion")
+								li
+									.collapsible-header.center Show Comments
+									.collapsible-body
+										each comment in message.comments
+											p #{comment.comment}
+										form(action="/new-comment" method="POST")
+											.input-field.comment
+												input(name="messageId" value=message.id hidden)
+												input(name="comment" id="newcomment" type="text" class="validate" required="" autocomplete="off")
+												button.waves-effect.waves-light.btn(type="submit") Comment
 
 
 

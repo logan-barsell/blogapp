@@ -1,5 +1,7 @@
 body{
 	height: 100%;
+	font-family: fantasy;
+	font-size: x-large;
 }
 .img {
 	background-image: url("images/loginbg.jpg");
@@ -9,7 +11,8 @@ body{
 }
 
 nav {
-	opacity: .8;
+	opacity: .7;
+	background-color: #d50000;
 }
 
 .intro {
@@ -25,13 +28,33 @@ nav {
 	color: white;
 	text-shadow: .5px .5px .5px darkorange;
 	margin-top: 2px;
+	font-size: 50px;
+	height: 100px;
 }
 .input-field.body > input {
 	color: black;
 	text-shadow: .5px .5px .5px darkgray;
 	margin-top: 2px;
+	font-size: xx-large;
+	height: 70px;	
 }
 
 button.waves-effect.waves-light.btn-large.post {
 	width: 90%;
+}
+.flow-text {
+	font-size: xx-large;
+}
+
+h2 {
+	text-shadow: 2px 2px 2px black;
+}
+
+.card .card-title{
+	text-shadow: .5px .5px .5px darkorange;
+	font-size: xx-large;
+}
+
+a.card-title:hover{
+	text-decoration: underline;
 }
