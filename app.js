@@ -14,6 +14,7 @@ const express = require('express'),
 	pg = require('pg')
 	// Sets up a connection to communicate with the database 
 	sequelize = require('sequelize')
+	// Initializes hover.css
 
 
 	// Creates data base blogpg
@@ -165,13 +166,17 @@ app.set('views', __dirname+'/views')
 })
 
 // Renders the single post page
-.get('/singlepost', (req, res) => {
+.get('/singlepost/:title', (req, res) => {
 	message.findOne({
+		where: {
+			title: req.params.title
+		},
 		include: [comment, user]
-	}).then( (messages) => {
+	}).then( (onemessage) => {
+		console.log("MESSAGE BITCHHHHHHHHHHH:",onemessage, "END")
 		res.render('singlepost', {
-			messages: messages,
-			user: req.session.user,
+			messages: onemessage,
+			user: req.session.user
 		})
 	})
 })

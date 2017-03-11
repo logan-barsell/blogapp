@@ -1,8 +1,16 @@
+html {
+	font-size: 25px;
+}
 body{
 	height: 100%;
 	font-family: fantasy;
 	font-size: x-large;
 }
+
+a:hover {
+	text-decoration: underline;
+}
+
 .img {
 	background-image: url("images/loginbg.jpg");
 	background-size: cover;                      
@@ -10,9 +18,52 @@ body{
     background-position: top center;
 }
 
+.shell > a {
+	padding-top: 35px;
+}
+
+.shell > a:hover {
+	text-decoration: none;
+	background-color: transparent;
+	text-shadow: .5px .5px .5px #b2dfdb; 
+}
+
+
+ul.nav-mobile.right{
+	margin: 0px 40px 0px 0px;
+	text-align: center;
+}
+
+ul.nav-mobile.right > li{
+	width: 180px;
+}
+ul.nav-mobile.left {
+	margin: 0px 0px 0px 40px;
+	text-decoration: underline;
+	text-align: center;
+}
+
+ul.nav-mobile.left > li {
+	margin-right: 15px;
+	width: 150px;
+}
+
 nav {
-	opacity: .7;
-	background-color: #d50000;
+	background-image: url("images/woodentexture.jpg");
+	text-shadow: .5px .5px .5px black;
+	height: 127px;
+}
+
+.bottle{
+	margin-top: -172px;
+	margin-left:33%;
+	background-image: url("images/imgbottle.png");
+	height: 200px;
+	width: 500px;
+	background-size: cover;                      
+    background-repeat: no-repeat;
+    background-position: center center;
+    border: 
 }
 
 .intro {
@@ -20,6 +71,9 @@ nav {
 	margin-bottom: 50px;
 }
 
+form.card {
+	margin-bottom: 50px;
+}
 .card.msg {
 	margin-top: 100px;
 }
@@ -42,16 +96,18 @@ nav {
 button.waves-effect.waves-light.btn-large.post {
 	width: 90%;
 }
+
 .flow-text {
 	font-size: xx-large;
 }
 
 h2 {
-	text-shadow: 2px 2px 2px black;
+	text-shadow: 1px 1px 5px #b2dfdb;
+	margin-top: 50px;
 }
 
 .card .card-title{
-	text-shadow: .5px .5px .5px darkorange;
+	text-shadow: .5px .5px .5px white;
 	font-size: xx-large;
 }
 
@@ -61,4 +117,18 @@ a.card-title:hover{
 
 .anonprofile {
 	margin-top: 150px;
+}
+
+h2.brand-logo.center{
+	font-size: 35px;
+	padding-right: 10px;
+	color: black;
+}
+
+.shell {
+	background-image: url("images/shell3.png");
+	background-size: cover;                      
+    background-repeat: no-repeat;
+    background-position: top center;
+    padding-bottom: 33px;
 }

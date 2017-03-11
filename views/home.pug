@@ -8,15 +8,18 @@ html
 		.img
 			nav
 				h2.brand-logo.center Message in a Bottle
-				
 				ul.nav-mobile.left
 					li
-						a(href="/home") Home
+						.shell
+							a(href="/home") Home
 					li
-						a(href="/profile") Profile
+						.shell
+							a(href="/profile") Profile
 				ul.nav-mobile.right
 					li
-						a(href="/?logout=true") Log Out
+						.shell
+							a(href="/?logout=true") Log Out
+			.bottle
 			.container.intro
 				if user
 					.flow-text Hello #{user.username}, welcome to Message in a Bottle!
@@ -47,7 +50,7 @@ html
 						.card.msg
 							.card-image
 								img(src="static/css/images/msgheader.jpg" alt="ocean")
-								a.card-title(href="/singlepost") #{message.title}
+								a.card-title(href="/singlepost/"+message.title) #{message.title}
 							.card-content
 								p #{message.body}
 								if message.user
@@ -76,3 +79,4 @@ html
 		script(type="text/javascript" src="static/js/jquery.min.js")
 		script(type="text/javascript" src="static/js/materialize.min.js")
 		script(type="text/javascript" src="static/js/custom.js")
+

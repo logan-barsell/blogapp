@@ -4,21 +4,24 @@ html
 		title Profile Page
 		link(type="text/css" rel="stylesheet" href="static/css/materialize.min.css"  media="screen,projection")
 		link(type="text/css" rel="stylesheet" href="static/css/home.css")
-	body
+	body(style="background-image: url('../static/css/images/anonprofilebg.jpg')")
 		nav
 				h2.brand-logo.center Message in a Bottle
-				
 				ul.nav-mobile.left
 					li
-						a(href="/home") Home
+						.shell
+							a(href="/home") Home
 					li
-						a(href="/profile") Profile
+						.shell
+							a(href="/profile") Profile
 				ul.nav-mobile.right
 					li
-						a(href="/?logout=true") Log Out
+						.shell
+							a(href="/?logout=true") Log Out
+		.bottle
 		if user
 			.container
-					h1.center #{user.username}
+					h3.center #{user.username}
 			.container
 				.row
 					.col.s12.m8.offset-m2
@@ -26,7 +29,7 @@ html
 							.card.msg
 								.card-image
 									img(src="static/css/images/msgheader.jpg" alt="ocean")
-									a.card-title(href="/singlepost") #{message.title}
+									a.card-title(href="/singlepost/"+message.title) #{message.title}
 								.card-content
 									p #{message.body}
 									if message.user
