@@ -4,8 +4,9 @@ html
 		title Profile Page
 		link(type="text/css" rel="stylesheet" href="static/css/materialize.min.css"  media="screen,projection")
 		link(type="text/css" rel="stylesheet" href="static/css/home.css")
-	body(style="background-image: url('../static/css/images/anonprofilebg.jpg')")
-		nav
+	if user
+		body(style="background-image: url('../static/css/images/profilebg.jpg')")
+			nav.z-depth-4
 				h2.brand-logo.center Message in a Bottle
 				ul.nav-mobile.left
 					li
@@ -17,16 +18,15 @@ html
 				ul.nav-mobile.right
 					li
 						.shell
-							a(href="/?logout=true") Log Out
-		.bottle
-		if user
+							a(href="/?sessionend=true") Log Out
+			.bottle
 			.container
 					h3.center #{user.username}
 			.container
 				.row
 					.col.s12.m8.offset-m2
 						each message in messages
-							.card.msg
+							.card.msg.z-depth-4
 								.card-image
 									img(src="static/css/images/msgheader.jpg" alt="ocean")
 									a.card-title(href="/singlepost/"+message.title) #{message.title}
@@ -50,7 +50,22 @@ html
 													input(name="messageId" value=message.id hidden)
 													input(name="comment" id="newcomment" type="text" class="validate" required="" autocomplete="off")
 													button.waves-effect.waves-light.btn(type="submit") Comment
-		else
+	else
+		body(style="background-image: url('../static/css/images/anonprofilebg.jpg')")
+			nav.z-depth-4
+					h2.brand-logo.center Message in a Bottle
+					ul.nav-mobile.left
+						li
+							.shell
+								a(href="/home") Home
+						li
+							.shell
+								a(href="/profile") Profile
+					ul.nav-mobile.right
+						li
+							.shell
+								a(href="/?sessionend=true") Log In
+			.bottle
 			.container.anonprofile
 				.flow-text Sorry, Anonymous users don't have profiles! Please 
 					a(href="/") log in

@@ -6,7 +6,7 @@ html
 		link(type="text/css" rel="stylesheet" href="static/css/home.css")
 	body
 		.img
-			nav
+			nav.z-depth-4
 				h2.brand-logo.center Message in a Bottle
 				ul.nav-mobile.left
 					li
@@ -18,7 +18,10 @@ html
 				ul.nav-mobile.right
 					li
 						.shell
-							a(href="/?logout=true") Log Out
+							if user
+								a(href="/?sessionend=true") Log Out
+							else
+								a(href="/?sessionend=true") Log In
 			.bottle
 			.container.intro
 				if user
@@ -29,7 +32,7 @@ html
 
 			.row
 				.col.s12.m8.offset-m2
-					form.card(action="/new-message" method="POST" class="form-msgpost")
+					form.card.z-depth-4(action="/new-message" method="POST" class="form-msgpost")
 						.card-image
 							img(src="static/css/images/msgheader.jpg" alt="ocean")
 							span.card-title
@@ -47,7 +50,7 @@ html
 			.row
 				.col.s12.m8.offset-m2
 					each message in messages
-						.card.msg
+						.card.msg.z-depth-4
 							.card-image
 								img(src="static/css/images/msgheader.jpg" alt="ocean")
 								a.card-title(href="/singlepost/"+message.title) #{message.title}
@@ -62,7 +65,12 @@ html
 									.collapsible-header.center Show Comments
 									.collapsible-body
 										each comment in message.comments
-											p #{comment.comment}
+											if comment.userId
+												p #{comment.user}:
+													span #{comment.comment} 
+											else
+												p Anonymous:  
+													span #{comment.comment}
 										form(action="/new-comment" method="POST")
 											.input-field.comment
 												input(name="messageId" value=message.id hidden)

@@ -68,7 +68,7 @@ app.set('views', __dirname+'/views')
 
 // Renders log-in page
 .get('/', (req, res) => {
-	if (req.query.logout){
+	if (req.query.sessionend){
 		req.session.destroy()
 		res.render('login')
 	}
@@ -119,26 +119,44 @@ app.set('views', __dirname+'/views')
 .post('/new-message', (req, res) => {
 	console.log('Body of the message post', req.body)
    //takes everything in req.body and posts a new message post
- 	message.create({
- 	 	title: req.body.title,
- 	 	body: req.body.body,
- 	 	userId: req.session.user.id
- 	 //refreshes home page	
- 	}).then( newpost => {
-    	res.redirect('/home')
- 	})
+    if (req.session.user){
+	 	message.create({
+	 	 	title: req.body.title,
+	 	 	body: req.body.body,
+	 	 	userId: req.session.user.id
+	 	 //refreshes home page	
+	 	}).then( newpost => {
+	    	res.redirect('/home')
+	 	})
+	 }else {
+	 	message.create({
+	 		title: req.body.title,
+	 		body:req.body.body
+	 	}).then( newpost => {
+	 		res.redirect('/home')
+	 	})
+	 }
 })
 
 // Posts a new comment
 .post('/new-comment', (req, res) => {
 	console.log('Comment made:', req.body)
-	comment.create({
-		comment: req.body.comment,
-		messageId: req.body.messageId,
-		userId: req.session.user.id
-	}).then(newcomment => {
-		res.redirect('/home')
-	})
+	if (req.session.user) {
+		comment.create({
+			comment: req.body.comment,
+			messageId: req.body.messageId,
+			userId: req.session.user.id
+		}).then(newcomment => {
+			res.redirect('/home')
+		})
+	} else {
+		comment.create({
+			comment: req.body.comment,
+			messageId: req.body.messageId
+		}).then(newcomment => {
+			res.redirect('/home')
+		})
+	}	
 })
 
 // Renders the profile page
@@ -173,7 +191,7 @@ app.set('views', __dirname+'/views')
 		},
 		include: [comment, user]
 	}).then( (onemessage) => {
-		console.log("MESSAGE BITCHHHHHHHHHHH:",onemessage, "END")
+		console.log("MESSAGE:",onemessage)
 		res.render('singlepost', {
 			messages: onemessage,
 			user: req.session.user
@@ -195,12 +213,13 @@ db.sync({force: true}).then( f => {
 }).then( themessage => {
 	console.log('Creating message', themessage)
 	return themessage.createComment({
-		comment: "I love this song!"
+		comment: "I love this song!",
+		userId: 1
 	})
 }).then( thecomment => {	
 	return user.findOne({
 		where: {
-			username: "Logan"
+			username: "Logan",
 		},
 		include: [ {
 			model: message,

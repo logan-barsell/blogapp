@@ -5,7 +5,7 @@ html
 		link(type="text/css" rel="stylesheet" href="/static/css/materialize.min.css"  media="screen,projection")
 		link(type="text/css" rel="stylesheet" href="/static/css/home.css")
 	body
-		nav
+		nav.z-depth-4
 			h2.brand-logo.center Message in a Bottle
 			ul.nav-mobile.left
 					li
@@ -17,13 +17,16 @@ html
 			ul.nav-mobile.right
 					li
 						.shell
-							a(href="/?logout=true") Log Out
+							if user
+								a(href="/?sessionend=true") Log Out
+							else
+								a(href="/?sessionend=true") Log In
 		.bottle
 		each message in messages
 			.container
 				.row
 					.col.s12.m8.offset-m2
-						.card.msg
+						.card.msg.z-depth-4
 							.card-image
 								img(src="/static/css/images/msgheader.jpg" alt="ocean")
 								a.card-title(href="/singlepost/"+message.title) #{message.title}
