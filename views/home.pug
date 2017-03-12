@@ -65,11 +65,11 @@ html
 									.collapsible-header.center Show Comments
 									.collapsible-body
 										each comment in message.comments
-											if comment.userId
-												p #{comment.user}:
+											if comment.user
+												p #{comment.user.username}:
 													span #{comment.comment} 
 											else
-												p Anonymous:  
+												p 
 													span #{comment.comment}
 										form(action="/new-comment" method="POST")
 											.input-field.comment

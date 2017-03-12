@@ -5,7 +5,7 @@ html
 		link(type="text/css" rel="stylesheet" href="static/css/materialize.min.css"  media="screen,projection")
 		link(type="text/css" rel="stylesheet" href="static/css/home.css")
 	if user
-		body(style="background-image: url('../static/css/images/profilebg.jpg')")
+		body(style="background-image: url('../static/css/images/aprofilebg.jpg')")
 			nav.z-depth-4
 				h2.brand-logo.center Message in a Bottle
 				ul.nav-mobile.left
@@ -22,34 +22,40 @@ html
 			.bottle
 			.container
 					h3.center #{user.username}
-			.container
-				.row
-					.col.s12.m8.offset-m2
-						each message in messages
-							.card.msg.z-depth-4
-								.card-image
-									img(src="static/css/images/msgheader.jpg" alt="ocean")
-									a.card-title(href="/singlepost/"+message.title) #{message.title}
-								.card-content
-									p #{message.body}
-									if message.user
-										span.right -#{message.user.username}
-									else
-										span.right -Anonymous
-								ul.collapsible.center(data-collapsible="accordion")
-									li
-										.collapsible-header.center Show Comments
-										.collapsible-body
-											each comment in message.comments
-												if comment.comment
-													p #{comment.comment}
-												else
-													p No Comments
-											form(action="/new-comment" method="POST")
-												.input-field.comment
-													input(name="messageId" value=message.id hidden)
-													input(name="comment" id="newcomment" type="text" class="validate" required="" autocomplete="off")
-													button.waves-effect.waves-light.btn(type="submit") Comment
+					.divider
+			if messages.length > 0
+				.container
+					.row
+						.col.s12.m8.offset-m2
+							each message in messages
+								.card.msg.z-depth-4
+									.card-image
+										img(src="/static/css/images/msgheader.jpg" alt="ocean")
+										a.card-title(href="/singlepost/"+message.title) #{message.title}
+									.card-content
+										p #{message.body}
+										if message.user
+											span.right -#{message.user.username}
+										else
+											span.right -Anonymous
+									ul.collapsible.center(data-collapsible="accordion")
+										li
+											.collapsible-header.center Show Comments
+											.collapsible-body
+												each comment in message.comments
+													if comment.user
+														p #{comment.user.username}:
+															span #{comment.comment} 
+													else
+														p Anonymous:  
+															span #{comment.comment}
+												form(action="/new-comment" method="POST")
+													.input-field.comment
+														input(name="messageId" value=message.id hidden)
+														input(name="comment" id="newcomment" type="text" class="validate" required="" autocomplete="off")
+														button.waves-effect.waves-light.btn(type="submit") Commen
+			else
+				p.center You have no messages to display!
 	else
 		body(style="background-image: url('../static/css/images/anonprofilebg.jpg')")
 			nav.z-depth-4

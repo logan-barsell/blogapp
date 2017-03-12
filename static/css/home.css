@@ -132,3 +132,11 @@ h2.brand-logo.center{
     background-position: top center;
     padding-bottom: 33px;
 }
+
+h3 {
+	margin-bottom: 0px;
+}
+
+p.center {
+	padding-top: 20px;
+}

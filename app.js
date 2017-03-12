@@ -37,9 +37,8 @@ const express = require('express'),
 		comment: sequelize.TEXT
 	})
 
-
-user.hasMany(message)
 message.belongsTo(user)
+user.hasMany(message)
 
 comment.belongsTo(user)
 user.hasMany(comment)
@@ -97,7 +96,8 @@ app.set('views', __dirname+'/views')
 		// Renders home page with messages object as parameter
 		res.render('home', {
 			messages: messages,
-			user: req.session.user
+			user: req.session.user,
+			comments: message.comments
 		})
 	})
 })
@@ -193,7 +193,7 @@ app.set('views', __dirname+'/views')
 	}).then( (onemessage) => {
 		console.log("MESSAGE:",onemessage)
 		res.render('singlepost', {
-			messages: onemessage,
+			message: onemessage,
 			user: req.session.user
 		})
 	})
