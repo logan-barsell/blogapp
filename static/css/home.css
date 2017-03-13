@@ -140,3 +140,21 @@ h3 {
 p.center {
 	padding-top: 20px;
 }
+
+.collapsible-body {
+	overflow: auto;
+	padding-top: 0px;
+	padding-bottom: 0px;
+}
+
+.comment {
+	margin-bottom: 20px;
+}
+
+.commenter {
+	text-shadow: .5px .5px 3px #e57373;
+}
+
+.commenter > span {
+	text-shadow: none;
+}

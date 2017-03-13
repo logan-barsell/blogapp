@@ -35,17 +35,19 @@ html
 								span.right -#{message.user.username}
 							else
 								span.right -Anonymous
-						ul.collapsible.center(data-collapsible="accordion")
+						ul.collapsible(data-collapsible="accordion")
 							li
 								.collapsible-header.center Show Comments
 								.collapsible-body
 									each comment in message.comments
 										if comment.user
-											p #{comment.user.username}:
-												span #{comment.comment} 
-										else
-											p  
+											p.commenter #{comment.user.username}: 
 												span #{comment.comment}
+											.divider
+										else
+											p.commenter Anonymous: 
+												span #{comment.comment}
+											.divider
 									form(action="/new-comment" method="POST")
 										.input-field.comment
 											input(name="messageId" value=message.id hidden)

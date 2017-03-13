@@ -90,7 +90,11 @@ app.set('views', __dirname+'/views')
 .get('/home', (req, res) => {
 	// Finds all messages in the database
 	message.findAll({
-		include: [comment, user]
+		// include: [comment, user]
+		include: [
+			{ model: comment, include: [ user ] },
+			{ model: user }
+		]
 	}).then( (messages) => {
 		console.log('These are all messages', messages)
 		// Renders home page with messages object as parameter
@@ -166,7 +170,10 @@ app.set('views', __dirname+'/views')
 			where: {
 				userId: req.session.user.id
 			},
-			include: [comment, user]
+			include: [
+				{ model: comment, include: [ user ] },
+				{ model: user }
+			]
 		}).then( (messages) => {
 			console.log('These are all messages', messages)
 			// Renders home page with messages object as parameter
@@ -189,7 +196,10 @@ app.set('views', __dirname+'/views')
 		where: {
 			title: req.params.title
 		},
-		include: [comment, user]
+		include: [
+			{ model: comment, include: [ user ] },
+			{ model: user }
+		]
 	}).then( (onemessage) => {
 		console.log("MESSAGE:",onemessage)
 		res.render('singlepost', {

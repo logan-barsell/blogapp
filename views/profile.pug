@@ -44,11 +44,13 @@ html
 											.collapsible-body
 												each comment in message.comments
 													if comment.user
-														p #{comment.user.username}:
-															span #{comment.comment} 
-													else
-														p  
+														p.commenter #{comment.user.username}: 
 															span #{comment.comment}
+														.divider
+													else
+														p.commenter Anonymous: 
+															span #{comment.comment}
+														.divider
 												form(action="/new-comment" method="POST")
 													.input-field.comment
 														input(name="messageId" value=message.id hidden)
@@ -56,6 +58,9 @@ html
 														button.waves-effect.waves-light.btn(type="submit") Commen
 			else
 				p.center You have no messages to display!
+			script(type="text/javascript" src="/static/js/jquery.min.js")
+			script(type="text/javascript" src="/static/js/materialize.min.js")
+			script(type="text/javascript" src="/static/js/custom.js")
 	else
 		body(style="background-image: url('../static/css/images/anonprofilebg.jpg')")
 			nav.z-depth-4
@@ -81,6 +86,6 @@ html
 
 
 
-		script(type="text/javascript" src="static/js/jquery.min.js")
-		script(type="text/javascript" src="static/js/materialize.min.js")
-		script(type="text/javascript" src="static/js/custom.js")
+			script(type="text/javascript" src="/static/js/jquery.min.js")
+			script(type="text/javascript" src="/static/js/materialize.min.js")
+			script(type="text/javascript" src="/static/js/custom.js")
