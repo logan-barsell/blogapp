@@ -37,7 +37,9 @@ html
 								span.right -Anonymous
 						ul.collapsible(data-collapsible="accordion")
 							li
-								.collapsible-header.center Show Comments
+								.collapsible-header.center
+									span.close Show Comments
+									span.open Hide Comments
 								.collapsible-body
 									each comment in message.comments
 										if comment.user

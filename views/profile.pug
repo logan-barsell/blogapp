@@ -5,7 +5,7 @@ html
 		link(type="text/css" rel="stylesheet" href="static/css/materialize.min.css"  media="screen,projection")
 		link(type="text/css" rel="stylesheet" href="static/css/home.css")
 	if user
-		body(style="background-image: url('../static/css/images/aprofilebg.jpg')")
+		body(style="background-image: url('../static/css/images/profilebg.jpg')")
 			nav.z-depth-4
 				h2.brand-logo.center Message in a Bottle
 				ul.nav-mobile.left
@@ -21,8 +21,10 @@ html
 							a(href="/?sessionend=true") Log Out
 			.bottle
 			.container
+				.row
+					img.left(src="../static/css/images/profileheader.png")
 					h3.center #{user.username}
-					.divider
+						img.right(src="../static/css/images/profileheader2.png")
 			if messages.length > 0
 				.container
 					.row
@@ -38,9 +40,11 @@ html
 											span.right -#{message.user.username}
 										else
 											span.right -Anonymous
-									ul.collapsible.center(data-collapsible="accordion")
+									ul.collapsible(data-collapsible="accordion")
 										li
-											.collapsible-header.center Show Comments
+											.collapsible-header.center
+												span.close Show Comments
+												span.open Hide Comments
 											.collapsible-body
 												each comment in message.comments
 													if comment.user
@@ -51,11 +55,11 @@ html
 														p.commenter Anonymous: 
 															span #{comment.comment}
 														.divider
-												form(action="/new-comment" method="POST")
+												form.center(action="/new-comment" method="POST")
 													.input-field.comment
 														input(name="messageId" value=message.id hidden)
-														input(name="comment" id="newcomment" type="text" class="validate" required="" autocomplete="off")
-														button.waves-effect.waves-light.btn(type="submit") Commen
+														input.center(name="comment" id="newcomment" type="text" class="validate" required="" autocomplete="off")
+														button.waves-effect.waves-light.btn(type="submit") Comment
 			else
 				p.center You have no messages to display!
 			script(type="text/javascript" src="/static/js/jquery.min.js")
