@@ -1,7 +1,7 @@
 doctype html
 html
 	head
-		title Home Page
+		title Home - Message in a Bottle
 		link(type="text/css" rel="stylesheet" href="static/css/materialize.min.css"  media="screen,projection")
 		link(type="text/css" rel="stylesheet" href="static/css/home.css")
 	body
@@ -45,7 +45,18 @@ html
 									input(name="body" id="newbody" type="text" class="validate" required="" autocomplete="off")
 						.card-action.center
 							button.waves-effect.waves-light.btn-large.post(type="submit") Send your message off into the sea!
-		.stone.z-depth-4
+		nav.stone
+			ul.nav-mobile.left
+				li
+					a.fading(href="/home") Home
+				li
+					a.fading(href="/profile") Profile
+			ul.nav-mobile.right
+				li
+					if user
+						a.fading(href="/?sessionend=true") Log Out
+					else
+						a.fading(href="/?sessionend=true") Log In
 		.ocean
 			.container
 				.row
@@ -67,8 +78,10 @@ html
 											span.close Show Comments
 											span.open Hide Comments
 										.collapsible-body
-											each comment in message.comments
-												if message.comments.length > 0
+											if message.comments.length == 0
+													p.center No Comments
+											else
+												each comment in message.comments
 													if comment.user
 														p.commenter #{comment.user.username}: 
 															span #{comment.comment}
@@ -77,8 +90,6 @@ html
 														p.commenter Anonymous: 
 															span #{comment.comment}
 														.divider
-												else
-													p No Comments
 											form.center(action="/new-comment" method="POST")
 												.input-field.comment
 													input(name="messageId" value=message.id hidden)

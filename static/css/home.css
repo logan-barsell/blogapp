@@ -18,6 +18,10 @@ a:hover {
     background-position: top center;
 }
 
+.afterscroll {
+	margin-bottom: 53px;
+}
+
 .shell > a {
 	padding-top: 35px;
 }
@@ -134,7 +138,6 @@ h2.brand-logo.center{
 }
 
 h3 {
-	/*padding-top: 27px;*/
 	margin-top: 33px;
 	margin-bottom: 0px;
 }
@@ -181,9 +184,32 @@ li.active .open, li .close {
 	width: 100%;
 	height: 53px;
 }
+
+.stone > ul {
+	height: 53px;
+}
+
+.stone > ul > li > a {
+	display: none;
+}
+
+.stone > ul > li > a:hover {
+	text-decoration: none;
+	background-color: transparent;
+	text-shadow: .5px .5px .5px #b2dfdb; 
+}
+
 .ocean {
 	background-image: url("images/ocean.jpg");
 	background-size: cover;                      
     background-repeat: no-repeat;
     background-position: top center;
+    background-attachment: fixed;
+}
+
+.fixed {
+	position: fixed; 
+	top: 0; 
+	height: 53px; 
+	z-index: 1;
 }

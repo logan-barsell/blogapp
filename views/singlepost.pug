@@ -1,7 +1,7 @@
 doctype html
 html
 	head
-		title Showing Single Post
+		title #{message.title}
 		link(type="text/css" rel="stylesheet" href="/static/css/materialize.min.css"  media="screen,projection")
 		link(type="text/css" rel="stylesheet" href="/static/css/home.css")
 	body
@@ -22,7 +22,7 @@ html
 							else
 								a(href="/?sessionend=true") Log In
 		.bottle
-		.container
+		.col
 			.row
 				.col.s12.m8.offset-m2
 					.card.msg.z-depth-4

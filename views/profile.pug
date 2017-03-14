@@ -1,7 +1,7 @@
 doctype html
 html
 	head
-		title Profile Page
+		title Profile - Message in a Bottle
 		link(type="text/css" rel="stylesheet" href="static/css/materialize.min.css"  media="screen,projection")
 		link(type="text/css" rel="stylesheet" href="static/css/home.css")
 	if user
@@ -46,15 +46,18 @@ html
 												span.close Show Comments
 												span.open Hide Comments
 											.collapsible-body
-												each comment in message.comments
-													if comment.user
-														p.commenter #{comment.user.username}: 
-															span #{comment.comment}
-														.divider
-													else
-														p.commenter Anonymous: 
-															span #{comment.comment}
-														.divider
+												if message.comments.length == 0
+													p.center No Comments
+												else
+													each comment in message.comments
+														if comment.user
+															p.commenter #{comment.user.username}: 
+																span #{comment.comment}
+															.divider
+														else
+															p.commenter Anonymous: 
+																span #{comment.comment}
+															.divider
 												form.center(action="/new-comment" method="POST")
 													.input-field.comment
 														input(name="messageId" value=message.id hidden)

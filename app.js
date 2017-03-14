@@ -18,7 +18,7 @@ const express = require('express'),
 
 
 	// Creates data base blogpg
-	db = new sequelize('blogapp', 'loganbarsell1', '', {
+	db = new sequelize('blogapp', process.env.POSTGRES_USER, process.env.POSTGRESS_PASSWORD, {
 		host: 'localhost',
 		dialect: 'postgres'
 	})
