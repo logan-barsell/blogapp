@@ -1,56 +1,29 @@
-html {
-	font-size: 25px;
-}
-body{
-	height: 100%;
-	font-family: fantasy;
-	font-size: x-large;
-}
 
-a:hover {
-	text-decoration: underline;
-}
 
-.img {
-	background-image: url("images/loginbg.jpg");
+
+/*---Backgrounds---*/
+
+.palms {
+	background-image: url("images/palmsbg.jpg");
 	background-size: cover;                      
     background-repeat: no-repeat;
     background-position: top center;
 }
 
 .afterscroll {
-	margin-bottom: 53px;
+	margin-bottom: 60px;
 }
 
-.shell > a {
-	padding-top: 35px;
-}
-
-.shell > a:hover {
-	text-decoration: none;
-	background-color: transparent;
-	text-shadow: .5px .5px .5px #b2dfdb; 
+.ocean {
+	background-image: url("images/ocean.jpg");
+	background-size: cover;                      
+    background-repeat: no-repeat;
+    background-position: top center;
+    background-attachment: fixed;
 }
 
 
-ul.nav-mobile.right{
-	margin: 0px 40px 0px 0px;
-	text-align: center;
-}
-
-ul.nav-mobile.right > li{
-	width: 180px;
-}
-ul.nav-mobile.left {
-	margin: 0px 0px 0px 40px;
-	text-decoration: underline;
-	text-align: center;
-}
-
-ul.nav-mobile.left > li {
-	margin-right: 15px;
-	width: 150px;
-}
+/*---NavBar---*/
 
 nav {
 	background-image: url("images/woodentexture.jpg");
@@ -70,16 +43,78 @@ nav {
     border: 
 }
 
+h2.brand-logo.center{
+	font-size: 35px;
+	padding-right: 10px;
+	color: black;
+	text-shadow: 1px 1px 5px #b2dfdb;
+	margin-top: 50px;
+}
+
+.shell {
+	background-image: url("images/shell3.png");
+	background-size: cover;                      
+    background-repeat: no-repeat;
+    background-position: top center;
+    padding-bottom: 33px;
+}
+
+.shell > a {
+	padding-top: 35px;
+}
+
+.shell > a:hover {
+	text-decoration: none;
+	background-color: transparent;
+	text-shadow: .5px .5px .5px #b2dfdb; 
+}
+
+ul.nav-mobile.right{
+	margin: 0px 40px 0px 0px;
+	text-align: center;
+}
+
+ul.nav-mobile.right > li{
+	width: 180px;
+}
+
+ul.nav-mobile.left {
+	margin: 0px 0px 0px 40px;
+	text-decoration: underline;
+	text-align: center;
+}
+
+ul.nav-mobile.left > li {
+	margin-right: 15px;
+	width: 150px;
+}
+
+
+/*---Introduction---*/
+
 .intro {
 	margin-top: 50px;
 	margin-bottom: 50px;
 }
 
+.flow-text {
+	font-size: xx-large;
+}
+
+
+/*---Messages---*/
+
 form.card {
 	margin-bottom: 50px;
 }
-.card.msg {
-	margin-top: 100px;
+
+.card .card-title{
+	text-shadow: .5px .5px .5px white;
+	font-size: xx-large;
+}
+
+a.card-title:hover{
+	text-decoration: underline;
 }
 
 .input-field.title > input {
@@ -89,6 +124,7 @@ form.card {
 	font-size: 50px;
 	height: 100px;
 }
+
 .input-field.body > input {
 	color: black;
 	text-shadow: .5px .5px .5px darkgray;
@@ -101,51 +137,18 @@ button.waves-effect.waves-light.btn-large.post {
 	width: 90%;
 }
 
-.flow-text {
-	font-size: xx-large;
+.card.msg {
+	margin-top: 100px;
 }
 
-h2 {
-	text-shadow: 1px 1px 5px #b2dfdb;
-	margin-top: 50px;
+/*---Comments---*/
+
+li .open, li.active .close {
+	display: none;
 }
 
-.card .card-title{
-	text-shadow: .5px .5px .5px white;
-	font-size: xx-large;
-}
-
-a.card-title:hover{
-	text-decoration: underline;
-}
-
-.anonprofile {
-	margin-top: 150px;
-}
-
-h2.brand-logo.center{
-	font-size: 35px;
-	padding-right: 10px;
-	color: black;
-}
-
-.shell {
-	background-image: url("images/shell3.png");
-	background-size: cover;                      
-    background-repeat: no-repeat;
-    background-position: top center;
-    padding-bottom: 33px;
-}
-
-h3 {
-	margin-top: 33px;
-	margin-bottom: 0px;
-}
-img.left, img.right {
-	margin-top: -27px;
-}
-p.center {
-	padding-top: 20px;
+li.active .open, li .close {
+	display: block;
 }
 
 .collapsible-body {
@@ -154,8 +157,8 @@ p.center {
 	padding-bottom: 0px;
 }
 
-.comment {
-	margin-bottom: 20px;
+p.center {
+	padding-top: 20px;
 }
 
 .commenter {
@@ -165,16 +168,12 @@ p.center {
 .commenter > span {
 	text-shadow: none;
 }
-li .open, li.active .close {
-	display: none;
-}
-li.active .open, li .close {
-	display: block;
+
+.comment {
+	margin-bottom: 20px;
 }
 
-.row {
-	margin: 0px;
-}
+/*---Stone Nav---*/
 
 .stone {
 	background-image: url("images/stone2.jpg");
@@ -182,11 +181,11 @@ li.active .open, li .close {
     background-repeat: repeat-x;
     background-position: top center;
 	width: 100%;
-	height: 53px;
+	height: 60px;
 }
 
 .stone > ul {
-	height: 53px;
+	height: 60px;
 }
 
 .stone > ul > li > a {
@@ -199,17 +198,42 @@ li.active .open, li .close {
 	text-shadow: .5px .5px .5px #b2dfdb; 
 }
 
-.ocean {
-	background-image: url("images/ocean.jpg");
-	background-size: cover;                      
-    background-repeat: no-repeat;
-    background-position: top center;
-    background-attachment: fixed;
-}
-
 .fixed {
 	position: fixed; 
 	top: 0; 
-	height: 53px; 
-	z-index: 1;
+	height: 60px; 
+	z-index: 10;
+}
+
+/*---Profile Page---*/
+.anonprofile {
+	margin-top: 150px;
+}
+
+h3 {
+	margin-top: 33px;
+	margin-bottom: 0px;
+}
+img.left, img.right {
+	margin-top: -27px;
+}
+
+/*---Misc---*/
+
+html {
+	font-size: 25px;
+}
+
+body{
+	height: 100%;
+	font-family: fantasy;
+	font-size: x-large;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+.row {
+	margin: 0px;
 }

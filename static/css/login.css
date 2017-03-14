@@ -1,32 +1,28 @@
 body{
 	height: 100%;
-	background-image: url("images/loginbg.jpg");
+	background-image: url("images/palmsbg.jpg");
 	background-size: cover;                      
     background-repeat: no-repeat;
     background-position: center center;
     font-family: fantasy;
 }
-h4 {
-	color: #d50000;
-	text-shadow: 2px 1px 2px gray;
-}
 
 .container.card-panel.z-depth-5.teal.lighten-4{
 	margin: auto;
-	/*margin-top: 85px;*/
 	opacity: .9;
 }
+
 .col.s4 {
 	margin: 50px;
 }
 
-.col.s1 {
-	margin-top: 30px;
-	padding-left: 30px
-}	
-
 .col.s4.register {
 	margin: 50px;
+}
+
+h4 {
+	color: #d50000;
+	text-shadow: 2px 1px 2px gray;
 }
 
 .row > .input-field.col.s12 > input {
@@ -35,15 +31,20 @@ h4 {
 	margin-top: 2px;
 }
 
+button {
+	margin-top: 10px;
+}
+
+.col.s1 {
+	margin-top: 30px;
+	padding-left: 30px
+}	
+
 .vertical-divider {
 	height:350px;
 	width: 1px;
 	background-color: #616161;
 	margin-left: 17px;
-	margin-top: 10px;
-}
-
-button {
 	margin-top: 10px;
 }
 
