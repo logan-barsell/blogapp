@@ -119,6 +119,7 @@ app.set('views', __dirname+'/views')
 	})	
 })
 
+
 // Posts a new message
 .post('/new-message', (req, res) => {
 	console.log('Body of the message post', req.body)
@@ -127,7 +128,7 @@ app.set('views', __dirname+'/views')
 	 	message.create({
 	 	 	title: req.body.title,
 	 	 	body: req.body.body,
-	 	 	userId: req.session.user.id
+	 	 	userId: req.session.user.id,
 	 	 //refreshes home page	
 	 	}).then( newpost => {
 	    	res.redirect('/home')
@@ -140,6 +141,27 @@ app.set('views', __dirname+'/views')
 	 		res.redirect('/home')
 	 	})
 	 }
+})
+
+.post('/edit-message', (req, res) => {
+  	message.update(req.body, {
+  		where: {
+  			id : req.body.messageId
+  		}
+  	}).then( updatemessage => {
+    	res.redirect('/home')
+    })
+})
+
+.post('/delete/:id', (req, res) => {
+	console.log("HELLOOOOOOO")
+	message.destroy({
+		where: {
+			id : req.params.id
+		}
+	}).then( deletemessage => {
+		res.redirect('/home')
+	})
 })
 
 // Posts a new comment
@@ -188,6 +210,20 @@ app.set('views', __dirname+'/views')
 			user: req.session.user
 		})
 	}
+})
+var totallikes= 0
+app.post('/addlike', (req, res) => {
+	message.findOne({ where: { id: req.body.messageId } }).then(addlike => {
+		totallikes =+ 1
+	})
+})
+
+.get('/getmessage', (req, res) => {
+	message.findAll({
+		include: [
+			{model: message, include: [likes]}
+		]
+	})
 })
 
 // Renders the single post page

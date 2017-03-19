@@ -4,18 +4,19 @@ html
 		title Home - Message in a Bottle
 		link(type="text/css" rel="stylesheet" href="static/css/materialize.min.css"  media="screen,projection")
 		link(type="text/css" rel="stylesheet" href="static/css/home.css")
+		link(href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet")
 	body
 		.palms.z-depth-4
-			nav.z-depth-4
-				h2.brand-logo.center Message in a Bottle
-				ul.nav-mobile.left
+			nav.wood.z-depth-4
+				h2.brand-logo.n1 Message in a Bottle
+				ul.nav-mobile.left.hide-on-med-and-down
 					li
 						.shell
 							a(href="/home") Home
 					li
 						.shell
 							a(href="/profile") Profile
-				ul.nav-mobile.right
+				ul.nav-mobile.right.hide-on-med-and-down
 					li
 						.shell
 							if user
@@ -32,39 +33,87 @@ html
 
 			.row
 				.col.s12.m8.offset-m2
-					form.card.z-depth-4(action="/new-message" method="POST")
+					form.post.card.z-depth-4(action="/new-message" method="POST")
 						.card-image
 							img(src="static/css/images/msgheader.jpg" alt="ocean")
-							span.card-title
+							span.card-title.card-flex
 								.input-field.title
 									label(for="title") Title
-									input(name="title" id="newtitle" type="text" class="validate" required="" autocomplete="off")
+									input.input-flex(name="title" id="newtitle" type="text" class="validate" required="" autocomplete="off")
 						.card-content
 							label(for="body") Body
 								.input-field.body
 									input(name="body" id="newbody" type="text" class="validate" required="" autocomplete="off")
 						.card-action.center
-							button.waves-effect.waves-light.btn-large.post(type="submit") Send your message off into the sea!
+							button.waves-effect.waves-light.btn-large(type="submit") Send your message off into the sea!
 		nav.stone
-			ul.nav-mobile.left
+			h2.fading.brand-logo.center Message in a Bottle
+			ul.nav-mobile.left.hide-on-med-and-down
 				li
 					a.fading(href="/home") Home
 				li
 					a.fading(href="/profile") Profile
-			ul.nav-mobile.right
+			ul.nav-mobile.right.hide-on-med-and-down
 				li
 					if user
 						a.fading(href="/?sessionend=true") Log Out
 					else
 						a.fading(href="/?sessionend=true") Log In
 		.ocean
-			.container
+			.row
+				.col.s12.m6.l3.searchbar
+					form#newsearch(method="GET")
+						.input-field
+							input.search(type="search" required placeholder="Search...")
+							label.label-icon(for="search")
+								i.material-icons search
+					#results.modal
+						.modal-content
+							h4.center -Search Results-
+							.divider
+							.results
+								h5.center.nomatches No Matches
+
+			.container.messages
 				.row
-					.col.s12.m8.offset-m2
-						each message in messages
+					each message in messages
+						.col.s12.m8.offset-m2.eachmessage
+							.likes.center
+								a(href="#")
+									i.material-icons.heart(id=message.id) favorite
+								span.totallikes #{totallikes}
+
+							if message.user && user
+								if message.user.id == user.id
+									.options
+										.row
+											.col.s6
+												a.btn.blue(href="#edit") Edit
+												#edit.modal
+													.modal-content
+														form.card.z-depth-4(action="/edit-message" method="POST")
+															.card-image
+																img(src="static/css/images/msgheader.jpg" alt="ocean")
+																span.card-title.card-flex
+																	.input-field.title
+																		input(name="messageId" value=message.id hidden)
+																		label(for="title") Title
+																		input.input-flex(name="title" id="newtitle" type="text" class="validate" required="" autocomplete="off" value=message.title)
+															.card-content
+																label(for="body") Body
+																	.input-field.body
+																		input(name="body" id="newbody" type="text" class="validate" required="" autocomplete="off" value=message.body)
+															.card-action.center
+																button.waves-effect.waves-light.btn-large(type="submit") Update Message		
+											.col.s6
+												form(action="/delete/"+message.id method="POST")
+													button.btn.red.right(type="submit") Delete
+							else
+								.options
+
 							.card.msg.z-depth-4
 								.card-image
-									img(src="static/css/images/msgheader.jpg" alt="ocean")
+									img(src="static/css/images/msgheader.jpg")
 									a.card-title(href="/singlepost/"+message.title) #{message.title}
 								.card-content
 									p #{message.body}
@@ -75,8 +124,8 @@ html
 								ul.collapsible(data-collapsible="accordion")
 									li
 										.collapsible-header.center
-											span.close Show Comments
-											span.open Hide Comments
+											span.close Show Comments (#{message.comments.length})
+											span.open Hide Comments (#{message.comments.length})
 										.collapsible-body
 											if message.comments.length == 0
 													p.center No Comments
@@ -95,6 +144,7 @@ html
 													input(name="messageId" value=message.id hidden)
 													input.center(name="comment" id="newcomment" type="text" class="validate" required="" autocomplete="off")
 													button.waves-effect.waves-light.btn(type="submit") Comment
+							.center.time(id=message.id) time
 
 
 

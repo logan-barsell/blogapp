@@ -25,34 +25,36 @@
 
 /*---NavBar---*/
 
-nav {
-	background-image: url("images/woodentexture.jpg");
+nav.wood {
+	background-image: url("images/wood.jpg");
 	text-shadow: .5px .5px .5px black;
 	height: 127px;
+	background-position: top center;
 }
 
 .bottle{
 	margin-top: -172px;
-	margin-left:33%;
-	background-image: url("images/imgbottle.png");
+	margin-left:34.5%;
+	background-image: url("images/bottle.png");
 	height: 200px;
 	width: 500px;
 	background-size: cover;                      
     background-repeat: no-repeat;
     background-position: center center;
-    border: 
 }
 
-h2.brand-logo.center{
+h2.brand-logo{
 	font-size: 35px;
-	padding-right: 10px;
 	color: black;
 	text-shadow: 1px 1px 5px #b2dfdb;
 	margin-top: 50px;
+	margin-left: 34.5%;
+	padding-left: 66px;
+
 }
 
 .shell {
-	background-image: url("images/shell3.png");
+	background-image: url("images/shell.png");
 	background-size: cover;                      
     background-repeat: no-repeat;
     background-position: top center;
@@ -137,10 +139,20 @@ button.waves-effect.waves-light.btn-large.post {
 	width: 90%;
 }
 
-.card.msg {
+.likes {
 	margin-top: 100px;
+	margin-bottom: -40px;
+}
+.likes > span {
+	margin-left: 15px;
 }
 
+.heart {
+	color: black;
+}
+.options {
+	height: 37px;
+}
 /*---Comments---*/
 
 li .open, li.active .close {
@@ -173,15 +185,26 @@ p.center {
 	margin-bottom: 20px;
 }
 
+.time {
+	font-size: 35px;
+	padding-bottom: 25px;
+}
+
 /*---Stone Nav---*/
 
 .stone {
-	background-image: url("images/stone2.jpg");
+	background-image: url("images/stone.jpg");
 	background-size: cover;                      
     background-repeat: repeat-x;
     background-position: top center;
 	width: 100%;
 	height: 60px;
+}
+
+.stone > h2.fading {
+	margin-top: 14px;
+	padding: 0px;
+	margin-left: 0px;
 }
 
 .stone > ul {
@@ -205,6 +228,13 @@ p.center {
 	z-index: 10;
 }
 
+input[type='search']{
+	background-color: white;
+}
+
+.searchbar > #results > .modal-content > h4 {
+	margin-bottom: 0px;
+}
 /*---Profile Page---*/
 .anonprofile {
 	margin-top: 150px;
@@ -215,7 +245,7 @@ h3 {
 	margin-bottom: 0px;
 }
 img.left, img.right {
-	margin-top: -27px;
+	
 }
 
 /*---Misc---*/
@@ -226,6 +256,7 @@ html {
 
 body{
 	height: 100%;
+
 	font-family: fantasy;
 	font-size: x-large;
 }

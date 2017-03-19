@@ -4,9 +4,10 @@ html
 		title #{message.title}
 		link(type="text/css" rel="stylesheet" href="/static/css/materialize.min.css"  media="screen,projection")
 		link(type="text/css" rel="stylesheet" href="/static/css/home.css")
-	body
-		nav.z-depth-4
-			h2.brand-logo.center Message in a Bottle
+		link(href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet")
+	body(style="background-image: url('/static/css/images/ocean.jpg')")
+		nav.wood.z-depth-4
+			h2.brand-logo Message in a Bottle
 			ul.nav-mobile.left
 					li
 						.shell
@@ -25,6 +26,37 @@ html
 		.col
 			.row
 				.col.s12.m8.offset-m2
+					.likes.center
+						a(href="#")
+							i.material-icons.heart(id=message.id) favorite
+						span.totallikes #{totallikes}
+
+					if message.user && user
+						if message.user.id == user.id
+							.options
+								.row
+									.col.s6
+										a.btn.blue(href='#edit') Edit	
+										#edit.modal
+													.modal-content
+														form.post.card.z-depth-4(action="/home" method="POST")
+															.card-image
+																img(src="static/css/images/msgheader.jpg" alt="ocean")
+																span.card-title.card-flex
+																	.input-field.title
+																		label(for="title") Title
+																		input.input-flex(name="title" id="newtitle" type="text" class="validate" required="" autocomplete="off" value=message.title)
+															.card-content
+																label(for="body") Body
+																	.input-field.body
+																		input(name="body" id="newbody" type="text" class="validate" required="" autocomplete="off" value=message.body)
+															.card-action.center
+																button.waves-effect.waves-light.btn-large(type="submit") Update Message
+									.col.s6
+										form(action="/delete/"+message.id method="POST")
+											button.btn.red.right(type="submit") Delete
+						else
+							.options
 					.card.msg.z-depth-4
 						.card-image
 							img(src="/static/css/images/msgheader.jpg" alt="ocean")
@@ -38,8 +70,8 @@ html
 						ul.collapsible(data-collapsible="accordion")
 							li
 								.collapsible-header.center
-									span.close Show Comments
-									span.open Hide Comments
+									span.close Show Comments (#{message.comments.length})
+									span.open Hide Comments (#{message.comments.length})
 								.collapsible-body
 									each comment in message.comments
 										if comment.user
@@ -55,6 +87,7 @@ html
 											input(name="messageId" value=message.id hidden)
 											input(name="comment" id="newcomment" type="text" class="validate" required="" autocomplete="off")
 											button.waves-effect.waves-light.btn(type="submit") Comment
+					.center.time(id=message.id) time
 
 
 

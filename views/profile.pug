@@ -4,32 +4,62 @@ html
 		title Profile - Message in a Bottle
 		link(type="text/css" rel="stylesheet" href="static/css/materialize.min.css"  media="screen,projection")
 		link(type="text/css" rel="stylesheet" href="static/css/home.css")
+		link(href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet")
 	if user
-		body(style="background-image: url('../static/css/images/anonprofilebg.jpg'); background-attachment: fixed;")
-			nav.z-depth-4
-				h2.brand-logo.center Message in a Bottle
-				ul.nav-mobile.left
+		body(style="background-image: url('../static/css/images/profilebg.jpg'); background-attachment: fixed;")
+			nav.wood.z-depth-4
+				h2.brand-logo.n1 Message in a Bottle
+				ul.nav-mobile.left.hide-on-med-and-down
 					li
 						.shell
 							a(href="/home") Home
 					li
 						.shell
 							a(href="/profile") Profile
-				ul.nav-mobile.right
+				ul.nav-mobile.right.hide-on-med-and-down
 					li
 						.shell
 							a(href="/?sessionend=true") Log Out
 			.bottle
 			.container
-				.row
-					img.left(src="../static/css/images/profileheader.png")
-					h3.center #{user.username}
-						img.right(src="../static/css/images/profileheader2.png")
+				h3.center #{user.username}
+				.divider
 			if messages.length > 0
 				.container
 					.row
 						.col.s12.m8.offset-m2
 							each message in messages
+								.likes.center
+									a(href="#")
+										i.material-icons.heart(id=message.id) favorite
+									span.totallikes #{totallikes}
+
+								if message.user && user
+									if message.user.id == user.id
+										.options
+											.row
+												.col.s6
+													a.btn.blue(href="#edit") Edit
+													#edit.modal
+														.modal-content
+															form.post.card.z-depth-4(action="/edit-message" method="POST")
+																.card-image
+																	img(src="static/css/images/msgheader.jpg" alt="ocean")
+																	span.card-title.card-flex
+																		.input-field.title
+																			label(for="title") Title
+																			input.input-flex(name="title" id="newtitle" type="text" class="validate" required="" autocomplete="off" value=message.title)
+																.card-content
+																	label(for="body") Body
+																		.input-field.body
+																			input(name="body" id="newbody" type="text" class="validate" required="" autocomplete="off" value=message.body)
+																.card-action.center
+																	button.waves-effect.waves-light.btn-large.modal-action.modal-close(type="submit") Update Message		
+												.col.s6
+													form(action="/delete/"+message.id method="POST")
+														button.btn.red.right(type="submit") Delete
+								else
+									.options
 								.card.msg.z-depth-4
 									.card-image
 										img(src="/static/css/images/msgheader.jpg" alt="ocean")
@@ -43,8 +73,8 @@ html
 									ul.collapsible(data-collapsible="accordion")
 										li
 											.collapsible-header.center
-												span.close Show Comments
-												span.open Hide Comments
+												span.close Show Comments (#{message.comments.length})
+												span.open Hide Comments (#{message.comments.length})
 											.collapsible-body
 												if message.comments.length == 0
 													p.center No Comments
@@ -63,23 +93,25 @@ html
 														input(name="messageId" value=message.id hidden)
 														input.center(name="comment" id="newcomment" type="text" class="validate" required="" autocomplete="off")
 														button.waves-effect.waves-light.btn(type="submit") Comment
+								.center.time(id=message.id) time
+
 			else
 				p.center You have no messages to display!
 			script(type="text/javascript" src="/static/js/jquery.min.js")
 			script(type="text/javascript" src="/static/js/materialize.min.js")
 			script(type="text/javascript" src="/static/js/custom.js")
 	else
-		body(style="background-image: url('../static/css/images/anonprofilebg.jpg')")
-			nav.z-depth-4
-					h2.brand-logo.center Message in a Bottle
-					ul.nav-mobile.left
+		body(style="background-image: url('../static/css/images/profilebg.jpg')")
+			nav.wood.z-depth-4
+					h2.brand-logo.n1 Message in a Bottle
+					ul.nav-mobile.left.hide-on-med-and-down
 						li
 							.shell
 								a(href="/home") Home
 						li
 							.shell
 								a(href="/profile") Profile
-					ul.nav-mobile.right
+					ul.nav-mobile.right.hide-on-med-and-down
 						li
 							.shell
 								a(href="/?sessionend=true") Log In
