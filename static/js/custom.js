@@ -86,25 +86,30 @@ $(document).ready(f => {
 	})
 
 
-	$('.likes a').click( event => {
+	$('.addlike').submit( event => {
 		event.preventDefault()
-		$('.likes').find('#'+event.target.id).css({'color':'red'})
-		var findId = $('.messages').find('#'+event.target.id)
-		$.post('/addlike', ({id: findId}), sendId => {
-
-		})
+		$('.likes').find('.addlike#'+event.target.id).hide()
+		$('.unlike').show()
+		var id = event.target.id
+		var likes = $('.addlike').find('input').val()
+		$.post('/like', {messageId: id, msgLikes: likes})
+		$('.totallikes#'+id).html(likes)
 	})
-	
 
-	$('.post').submit( event => {
-		var date = new Date()
-		var hour = (date.getHours()<10?'0':'') + date.getHours()
-		var minute = (date.getMinutes()<10?'0':'') + date.getMinutes()
-		var time = hour + ':' + minute
-		console.log('hello', event.target)
-		var findId = $('.messages').find('.time#').css({'color':'red'})
-		$.post('/addmessage', ({}), timeStamp => {
-			$('.time').html(timeStamp)
-		})
+	$('.unlike').submit( event => {
+		event.preventDefault()
+		$('.likes').find('.unlike#'+event.target.id).hide()
+		$('.addlike').show()
+		var id = event.target.id
+		var likes = $('.unlike').find('input').val()
+		$.post('/like', {messageId: id, msgLikes: likes})
+		$('.totallikes#'+id).html(likes)
 	})
 })
+
+
+
+
+
+
+

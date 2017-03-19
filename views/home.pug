@@ -79,9 +79,16 @@ html
 					each message in messages
 						.col.s12.m8.offset-m2.eachmessage
 							.likes.center
-								a(href="#")
-									i.material-icons.heart(id=message.id) favorite
-								span.totallikes #{totallikes}
+								form.addlike(action="#" method="POST" id=message.id)
+									input(name="msgLikes" value=message.likes+1 hidden)
+									button.btn-flat(type="submit")
+										i.material-icons.heart.left(id=message.id) favorite
+										span.totallikes(id=message.id) #{message.likes}
+								form.unlike(action='#' method="POST" id=message.id)
+									input(name="msgLikes" value=message.likes-1 hidden)
+									button.btn-flat(type="submit")
+										i.material-icons.heart.left(id=message.id) favorite
+										span.totallikes(id=message.id) #{message.likes}
 
 							if message.user && user
 								if message.user.id == user.id
@@ -131,6 +138,7 @@ html
 													p.center No Comments
 											else
 												each comment in message.comments
+													.cmt-time.left #{(comment.createdAt.getHours()<10?'0':'') + comment.createdAt.getHours()+':'+(comment.createdAt.getMinutes()<10?'0':'') + comment.createdAt.getMinutes()}
 													if comment.user
 														p.commenter #{comment.user.username}: 
 															span #{comment.comment}
@@ -144,7 +152,7 @@ html
 													input(name="messageId" value=message.id hidden)
 													input.center(name="comment" id="newcomment" type="text" class="validate" required="" autocomplete="off")
 													button.waves-effect.waves-light.btn(type="submit") Comment
-							.center.time(id=message.id) time
+							.center.time #{(message.createdAt.getHours()<10?'0':'') + message.createdAt.getHours()+':'+(message.createdAt.getMinutes()<10?'0':'') + message.createdAt.getMinutes()}
 
 
 

@@ -150,6 +150,15 @@ button.waves-effect.waves-light.btn-large.post {
 .heart {
 	color: black;
 }
+
+.unlike {
+	display: none;
+}
+
+.unlike > button > .heart {
+	color: red;
+}
+
 .options {
 	height: 37px;
 }
@@ -183,6 +192,11 @@ p.center {
 
 .comment {
 	margin-bottom: 20px;
+}
+
+.cmt-time {
+	padding-right: 25px;
+	padding-top: 25px;
 }
 
 .time {

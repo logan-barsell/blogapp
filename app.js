@@ -30,7 +30,8 @@ const express = require('express'),
 	// Creates a message table with title and body
 	message = db.define('message', {
 		title: sequelize.STRING,
-		body: sequelize.TEXT
+		body: sequelize.TEXT,
+		likes: sequelize.INTEGER
 	})
 	// Creates a comment table
 	comment = db.define('comment', {
@@ -129,6 +130,7 @@ app.set('views', __dirname+'/views')
 	 	 	title: req.body.title,
 	 	 	body: req.body.body,
 	 	 	userId: req.session.user.id,
+	 	 	likes: 0
 	 	 //refreshes home page	
 	 	}).then( newpost => {
 	    	res.redirect('/home')
@@ -136,11 +138,20 @@ app.set('views', __dirname+'/views')
 	 }else {
 	 	message.create({
 	 		title: req.body.title,
-	 		body:req.body.body
+	 		body:req.body.body,
+	 		likes: 0
 	 	}).then( newpost => {
-	 		res.redirect('/home')
+	 		console.log("DONE!")
 	 	})
 	 }
+})
+
+.post('/like', (req, res) => {
+	message.update({likes: req.body.msgLikes}, {
+		where: {
+			id: req.body.messageId
+		}
+	})
 })
 
 .post('/edit-message', (req, res) => {
@@ -211,20 +222,6 @@ app.set('views', __dirname+'/views')
 		})
 	}
 })
-var totallikes= 0
-app.post('/addlike', (req, res) => {
-	message.findOne({ where: { id: req.body.messageId } }).then(addlike => {
-		totallikes =+ 1
-	})
-})
-
-.get('/getmessage', (req, res) => {
-	message.findAll({
-		include: [
-			{model: message, include: [likes]}
-		]
-	})
-})
 
 // Renders the single post page
 .get('/singlepost/:title', (req, res) => {
@@ -254,7 +251,8 @@ db.sync({force: true}).then( f => {
 }).then(user => {
 	return user.createMessage({
 		title: "Come together",
-		body: 'Right now, over me'
+		body: 'Right now, over me',
+		likes: 0
 	})
 }).then( themessage => {
 	console.log('Creating message', themessage)
