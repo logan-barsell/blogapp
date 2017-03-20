@@ -82,13 +82,13 @@ html
 								form.addlike(action="#" method="POST" id=message.id)
 									input(name="msgLikes" value=message.likes+1 hidden)
 									button.btn-flat(type="submit")
-										i.material-icons.heart.left(id=message.id) favorite
-										span.totallikes(id=message.id) #{message.likes}
+										i.material-icons.heart.left(id='black'+message.id) favorite
+										span.totallikes(id='like'+message.id) #{message.likes}
 								form.unlike(action='#' method="POST" id=message.id)
 									input(name="msgLikes" value=message.likes-1 hidden)
 									button.btn-flat(type="submit")
-										i.material-icons.heart.left(id=message.id) favorite
-										span.totallikes(id=message.id) #{message.likes}
+										i.material-icons.heart.left(id='red'+message.id) favorite
+										span.totallikes(id='unlike'+message.id) #{message.likes}
 
 							if message.user && user
 								if message.user.id == user.id

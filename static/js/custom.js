@@ -41,6 +41,7 @@ $(document).ready(f => {
 		if (w < 993) {
 		 	$('h2.brand-logo.n1').css({'margin-left':'0px','padding-right':'66px','padding-left':'0px'})
 		 	$('.bottle').css({'margin':'auto','margin-top':'-172px'})
+		 	$('.likes').css({'margin-bottom':'40px'})
 		}
 		else{
 			$('h2.brand-logo.n1').css({'margin-left':'34.5%','padding-left':'66px'})
@@ -92,8 +93,10 @@ $(document).ready(f => {
 		$('.unlike').show()
 		var id = event.target.id
 		var likes = $('.addlike').find('input').val()
-		$.post('/like', {messageId: id, msgLikes: likes})
-		$('.totallikes#'+id).html(likes)
+		$.post('/like', {messageId: id, msgLikes: likes}, data => {
+			console.log(likes)
+			$('.totallikes#unlike'+id).html(likes)
+		})
 	})
 
 	$('.unlike').submit( event => {
@@ -102,8 +105,10 @@ $(document).ready(f => {
 		$('.addlike').show()
 		var id = event.target.id
 		var likes = $('.unlike').find('input').val()
-		$.post('/like', {messageId: id, msgLikes: likes})
-		$('.totallikes#'+id).html(likes)
+		$.post('/like', {messageId: id, msgLikes: likes}).done( data => {
+			console.log(likes)
+			$('.totallikes#like'+id).html(likes)
+		})
 	})
 })
 

@@ -81,6 +81,7 @@ html
 									span.open Hide Comments (#{message.comments.length})
 								.collapsible-body
 									each comment in message.comments
+										.cmt-time.left #{(comment.createdAt.getHours()<10?'0':'') + comment.createdAt.getHours()+':'+(comment.createdAt.getMinutes()<10?'0':'') + comment.createdAt.getMinutes()}
 										if comment.user
 											p.commenter #{comment.user.username}: 
 												span #{comment.comment}
@@ -94,7 +95,7 @@ html
 											input(name="messageId" value=message.id hidden)
 											input(name="comment" id="newcomment" type="text" class="validate" required="" autocomplete="off")
 											button.waves-effect.waves-light.btn(type="submit") Comment
-					.center.time(id=message.id) time
+					.center.time #{(message.createdAt.getHours()<10?'0':'') + message.createdAt.getHours()+':'+(message.createdAt.getMinutes()<10?'0':'') + message.createdAt.getMinutes()}
 
 
 

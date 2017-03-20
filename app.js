@@ -97,7 +97,6 @@ app.set('views', __dirname+'/views')
 			{ model: user }
 		]
 	}).then( (messages) => {
-		console.log('These are all messages', messages)
 		// Renders home page with messages object as parameter
 		res.render('home', {
 			messages: messages,
@@ -108,13 +107,11 @@ app.set('views', __dirname+'/views')
 })
 
 .post('/home', (req, res) => {
-	console.log('The post req.body contains: ', req.body)
 	user.findOne({
 		where:{
 			username: req.body.username
 		}
 	}).then( theuser => {
-		console.log('User from database:', theuser)
 		req.session.user = theuser
 		res.redirect('/home')
 	})	
@@ -123,7 +120,6 @@ app.set('views', __dirname+'/views')
 
 // Posts a new message
 .post('/new-message', (req, res) => {
-	console.log('Body of the message post', req.body)
    //takes everything in req.body and posts a new message post
     if (req.session.user){
 	 	message.create({
@@ -152,6 +148,7 @@ app.set('views', __dirname+'/views')
 			id: req.body.messageId
 		}
 	})
+	res.send('done')
 })
 
 .post('/edit-message', (req, res) => {
@@ -165,7 +162,6 @@ app.set('views', __dirname+'/views')
 })
 
 .post('/delete/:id', (req, res) => {
-	console.log("HELLOOOOOOO")
 	message.destroy({
 		where: {
 			id : req.params.id
@@ -177,7 +173,6 @@ app.set('views', __dirname+'/views')
 
 // Posts a new comment
 .post('/new-comment', (req, res) => {
-	console.log('Comment made:', req.body)
 	if (req.session.user) {
 		comment.create({
 			comment: req.body.comment,
@@ -208,7 +203,6 @@ app.set('views', __dirname+'/views')
 				{ model: user }
 			]
 		}).then( (messages) => {
-			console.log('These are all messages', messages)
 			// Renders home page with messages object as parameter
 			res.render('profile', {
 				messages: messages,
@@ -234,7 +228,6 @@ app.set('views', __dirname+'/views')
 			{ model: user }
 		]
 	}).then( (onemessage) => {
-		console.log("MESSAGE:",onemessage)
 		res.render('singlepost', {
 			message: onemessage,
 			user: req.session.user
